@@ -1,0 +1,348 @@
+%%% Пункт 3.1 — фармат А4 (210x297 мм);
+%%%           — памер асноўнага шрыфту 12 пунктаў;
+\documentclass[a4paper,12pt, oneside, final]{extarticle} % extarticle — падтрымка шрыфтаў з памерам 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt, 20pt
+
+%%% Пункт 3.1 — памер палёў старонкі (малюнак 3.1, СТП 01-2017)
+\usepackage{geometry}
+    \geometry{left=30mm}
+    \geometry{right=10mm}
+    \geometry{top=20mm}
+    \geometry{bottom=20mm}
+
+%%% Пункт 3.1 — шрыфт Times New Roman
+\usepackage{fontspec}
+    \defaultfontfeatures{Renderer=Basic,Ligatures={TeX}} % LuaLaTeX
+    \setmainfont{Times New Roman}
+
+%%% Падключэнне беларускай мовы
+\usepackage[english, belarusian]{babel}
+
+%%% Для ўключэння pdf дакументаў у канчатковы файл
+\usepackage{pdfpages}
+
+%%% Пераносы ў словах са злучком
+%%% Злучок у словах замяняецца на \hyph: апаратна\hyphпраграмны
+%%% https://stackoverflow.com/questions/2193307/how-to-get-latex-to-hyphenate-a-word-that-contains-a-dash
+\def\hyph{-\penalty0\hskip0pt\relax}
+
+%%% мадыфікатары напісання
+\usepackage{soul}
+
+%%% спасылкі ў pdf
+\usepackage{hyperref}
+    \hypersetup{
+        unicode=true,                           % кірыліца ў раздзелах pdf
+        pdftitle={Дыпломны праект},             % загаловак
+        pdfauthor={Буцько Антось Уладзіміравіч},% аўтар
+        colorlinks=true,                        % каляровыя спасылкі
+        linkcolor=black,                        % колер унутраных спасылак
+        linktoc=all,                            % спасылка па загалоўку і нумару старонкі
+    }
+
+%%% Пункт 3.1 — інтэрвал паміж радкамі
+%%%             мае складаць 1,5 машынапіснага інтэрвалу
+\usepackage{setspace}
+    \onehalfspacing
+
+%%% «Разумная» коска
+\usepackage{icomma}
+
+%%% перанос знакаў у формулах (па Львоўскаму)
+%%% https://www.coursera.org/learn/latex/
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+{\hbox{$\mathsurround=0pt #1$}}{}}
+
+%%% подпісы
+\usepackage{caption}
+    %%% Пункт 3.3 — подпіс табліцы
+    \captionsetup[table]{
+        name=Табліца,
+        labelsep=endash,                % значок " — "
+        justification=raggedright,      % выраўноўваць па леваму боку
+        singlelinecheck=false,          % не выраўноўваць па цэнтру, калі 1 радок
+        skip=0pt,                       % паміж табліцай і назвай няма адлегласці
+        font=onehalfspacing,            % 1,5 інтэрвал паміж радкамі
+        belowskip=-0.2\baselineskip,    % "магія" для роўных прамежкаў зверху і знізу табліцы (падбіраў для прыблізнай аднолькавасці ў міліметрах)
+    }
+    %%% Пункт 3.5 — подпіс ілюстрацый
+    \captionsetup[figure]{
+        name=Малюнак,
+        labelsep=endash,                % значок " — "
+        justification=centering,        % выраўноўваць па цэнтру
+        font=onehalfspacing,            % 1,5 інтэрвал паміж радкамі
+        skip=1.5\baselineskip,          % пусты радок паміж малюнкам і назвай
+        belowskip=-0.6\baselineskip     % "магія" для роўных прамежкаў зверху і знізу малюнка
+    }
+    \captionsetup[lstlisting]{
+        labelsep=endash,
+        justification=centering,
+        font=onehalfspacing,
+        skip=1.5\baselineskip,
+    }
+
+\usepackage{fancyhdr} % пакет для устаноўкі калонтытулаў
+    %%% Стыль старонкі (раздзел)
+    %%% Пункт 3.2 — нумарацыя старонак у ніжнім правым кутку
+    %%%           — (малюнак 3.1, СТП 01-2017)
+    \fancypagestyle{section}{
+        \fancyhf{} % ачыстка стылю
+        \renewcommand{\headrulewidth}{0pt} % прыбраць падзяляльную лінію ўверсе старонкі
+        \renewcommand{\footrulewidth}{0pt} % прыбраць падзяляльную лінію ўнізе старонкі
+        \rfoot{\thepage} % нумарацыя ў ніжнім правым кутку
+    }
+    \pagestyle{section}
+
+%%% Водступ першага абзаца ў section (адпаведна з астатнімі абзацамі)
+\usepackage{indentfirst}
+
+%%% адключэнне змянення прабелаў паміж словамі/сказамі
+\frenchspacing
+
+%%% Пункт 3.1 — велічыня водступу абзаца 1,25 см
+\setlength{\parindent}{1.25cm}
+
+%%% магчымасць адключаць пераносы слоў
+\usepackage{hyphenat}
+
+%%% Рэдагаваць выгляд загалоўкаў
+\usepackage{titlesec}
+%%% Пункт 3.1 — загалоўкі раздзелаў пішуцца вялікімі літарамі
+%%%           — водступ абзаца
+%%%           — паўтоўсты шрыфт Times New Roman 14 памеру
+%%%           — перанос слоў не дапускаецца
+%%%           — адлегласць паміж загалоўкам і тэкстам у 1 прабельны радок
+%%%           — адлегласць паміж загалоўкам і падзагалоўкам у 1 прабельны радок
+%%%           — дадатак Р
+    \titleformat{\section}%
+        {\onehalfspacing \bfseries \raggedright}%
+        {}%
+        {0pt}%
+        {\hspace{1.25cm}\fontsize{14}{14}\selectfont\thesection~\MakeUppercase}%
+    \titlespacing{\section}{0pt}{0pt}{\baselineskip}
+%%% Пункт 3.1 — паўтоўсты шрыфт Times New Roman з памерам асноўнага тэксту
+%%%           — адлегласць паміж падзагалоўкам і тэкстам у 1 прабельны радок
+%%%           — водступ абзаца
+%%%           — дадатак Р
+    \titleformat{\subsection}
+        {\onehalfspacing \bfseries \raggedright}%
+        {}%
+        {0pt}%
+        {\hspace{1.25cm}\thesubsection~} 
+    \titlespacing{\subsection}{0pt}{\baselineskip}{\baselineskip}
+%%% Пункт 3.1 — нармальны шрыфт Times New Roman
+%%%           — нумар падпункта паўтоўстым шрыфтам Times New Roman
+%%%           — водступ абзаца
+%%%           — загаловак пункта не вылучаецца паўтоўстым шрыфтам
+%%%           — змест пункта пачынаецца з новага абзаца без прабельнага радка
+    \titleformat{\subsubsection}
+        {\onehalfspacing \raggedright}%
+        {}%
+        {0pt}%
+        {\hspace{1.25cm}{\bfseries \thesubsubsection~}} 
+    \titlespacing{\subsubsection}{0pt}{\baselineskip}{0pt}
+%%% Каманда для загалоўка без нумарацыі
+\newcommand{\sectionWithoutNumber}[1]%
+{%
+    \phantomsection%
+    \begin{center}%
+        \fontsize{14}{14}%
+        \selectfont%
+        \bfseries%
+        \MakeUppercase{#1}%
+    \end{center}%
+    \addcontentsline{toc}{section}{#1}%
+    \par
+}
+%%% Каманда для загалоўка без дабаўлення ў змест
+\newcommand{\sectionWithoutContent}[1]%
+{%
+    \phantomsection%
+    \begin{center}%
+        \fontsize{14}{14}%
+        \selectfont%
+        \bfseries%
+        \MakeUppercase{#1}%
+    \end{center}%
+    \par
+}
+%%% Змест
+\usepackage{tocloft}
+%%% Падпункт 2.2.6
+%%% Дадатак И
+    % старонка са зместам не нумаруецца
+    \tocloftpagestyle{empty}
+    % адключэнне пераносу слоў
+    \makeatletter
+        \renewcommand{\@tocrmarg}{2.55em plus1fil}
+    \makeatletter
+    % шматкроп'е да нумару старонкі
+    \cftsetpnumwidth{2ex}
+    % адлегласць паміж нумарам раздзела і яго назвай
+    \renewcommand{\cftsecnumwidth}{10pt}
+    % шрыфт загалоўка раздзела
+    \renewcommand{\cftsecfont}{\normalfont}
+    % шрыфт нумара раздзела
+    \renewcommand{\cftsecpagefont}{\normalfont}
+    % шматкроп'е паміж загалоўкам і нумарам старонкі для раздзела
+    \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+    % адлегласць паміж загалоўкамі раздзелаў
+    \renewcommand{\cftbeforesecskip}{0em}
+    % адлегласць паміж нумарам падраздзела і яго назвай
+    \renewcommand{\cftsubsecnumwidth}{20pt}
+    % слова ЗМЕСТ пішацца вялікімі літарамі, паўтоўстым шрыфтам, па цэнтру
+    \renewcommand{\cfttoctitlefont}{%
+        \hfill%
+        \fontsize{14}{14}%
+        \bfseries%
+        \MakeUppercase%
+    }
+    \renewcommand{\cftaftertoctitle}{\hfill}
+    %\renewcommand{\cftaftertoctitle}{\hfill\hfill}
+%%% Падпункт 2.2.6 — змест уключае загалоўкі ўсіх частак тлумачальнай запіскі,
+%%%                — у тым ліку раздзелаў, падраздзелаў, дадаткаў
+\setcounter{tocdepth}{2} % змест уключае толькі section і subsection
+
+
+%%% Пункт 3.2 — спіс/пералік
+%%%           — дадатак Р
+%%%           — калі ў любым пункце ёсць перанос на
+%%%           — наступны радок, то гэтыя радкі
+%%%           — без водступу абзаца
+\usepackage{enumitem}
+%%% Адлегласці для 1, 2, 3 узроўня спісаў,
+%%% каб значок пераліку быў на адлегласці водступу абзаца
+\newlength{\indentForFirstItems}
+\setlength{\indentForFirstItems}{\parindent + 2ex}
+\newlength{\indentForSecondItems}
+\setlength{\indentForSecondItems}{\indentForFirstItems + \parindent}
+\newlength{\indentForThirdItems}
+\setlength{\indentForThirdItems}{\indentForSecondItems + \parindent}
+%%% дабаўляем пералік у выглядзе літар беларускага алфавіта
+%%% https://tex.stackexchange.com/questions/211386/use-letters-and-numbers-in-numerate-simultaneously
+    \makeatletter
+        \AddEnumerateCounter{\asbuk}{\belarusian@alph}{}
+    \makeatother
+%%% Агульныя параметры для кожнага ўзроўню спіса
+    \setlist{
+        noitemsep,                          % адсутнасць прамежку паміж радкамі
+        nosep,                              % адсутнасць прамежку паміж тэкстам і спісам
+        leftmargin=0pt,                     % адсутнасць водступу леваруч
+        labelsep=0.55ex                     % адлегласць паміж значком і першай літарай
+    }
+%%% Пункт 3.2 — перад кожнай пазіцыяй ставіць працяжнік
+%%%           — водступ абзаца
+    \setlist[1]{
+        label=--,                           % значок пераліку
+        itemindent=\indentForFirstItems,    % водступ абзаца
+    }
+%%% Пункт 3.2 — пералік у адной з пазіцый,
+%%%           — то ставіць малую літару з дужкай
+%%%           — водступ абзаца
+    \setlist[2]{
+        label={\asbuk*}),
+        itemindent=\indentForSecondItems
+}
+%%% Пункт 3.2 — наступны пералік,
+%%%           — пры дапамозе арабскіх літар з дужкай
+%%%           — водступ абзаца
+    \setlist[3]{
+        label={\arabic*}),
+        itemindent=\indentForThirdItems
+    }
+
+%%% Табліцы
+\usepackage{array,tabularx,tabulary,booktabs, tabu} % дадатковыя магчымасці для табліц
+\usepackage{longtable}                        % для табліц на некалькі старонак
+\usepackage{multirow}                         % зліццё радкоў у табліцы
+\usepackage{adjustbox}                        % для афармлення блокаў з пэўным выраўноўваннем
+\usepackage{float}                            % опцыя H (уставіць акурат сюды) для табліц і ілюстрацый
+
+%%% Пункт 3.1 — нумар табліцы складаецца з нумару раздзела і
+%%%           — парадкавага нумару табліцы, падзеленых кропкай
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+
+%%% Пункт 3.1 — табліца/ілюстрацыя мае адасабляцца пустым радком зверху і знізу
+\setlength\intextsep{1.3\baselineskip}
+
+%%% малюнкі
+\usepackage{graphicx}
+    \graphicspath{{images/}} % месца, дзе шукаць графічныя файлы
+
+%%% Пункт 3.1 — нумар табліцы складаецца з нумару раздзела і
+%%%           — парадкавага нумару табліцы, падзеленых кропкай
+%%%\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+
+%%% Пункт 3.4 — формула адасабляецца пустым радком зверху і знізу
+\AtBeginDocument{%
+ \abovedisplayskip=\baselineskip%
+ \abovedisplayshortskip=0.8\baselineskip%
+ \belowdisplayskip=\baselineskip%
+ \belowdisplayshortskip=\baselineskip%
+}
+%%% Іншы спосаб прызначэння параметраў
+%\makeatletter
+%\g@addto@macro\normalsize{%
+%  \setlength\abovedisplayskip{\baselineskip}
+%  \setlength\abovedisplayshortskip{0.8\baselineskip}
+%  \setlength\belowdisplayskip{\baselineskip}
+%  \setlength\belowdisplayshortskip{\baselineskip}
+%}
+%\makeatother
+
+%%% Дадатковыя магмымасці для матэматыкі
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+
+%%% Шрыфт для формул падобны на Times New Roman
+%%% Варыянты: XITS Math, TeX Gyre Termes Math, Stix Two Math
+\usepackage{unicode-math}
+    \setmathfont{Tex Gyre Termes Math}
+
+%%% Пункт 3.4 — нумарацыя формул у межах раздзела
+\usepackage{mathtools}
+    \numberwithin{equation}{section}
+    % Нумарацыя толькі для тых формул, на якія існуе \eqref{} у тэксце
+    %\mathtoolsset{showonlyrefs=true}
+
+%%% Пункт 3.4 — тлумачэнне формулы вылучаецца пустым радком зверху і знізу
+%%%           — тлумачэнне кожнага сімвала з новага радка
+%%%           — першы радок мае пачынацца са слова «дзе» (\item[дзе])
+%%%           — першы радок з водступам абзаца
+%%%           — сімвалы размяшчаюцца адзін пад адным
+%%% https://github.com/mstyura/bsuir-diploma-latex/blob/master/MiKTeX/course_content.tex
+\newlength{\lengthWordWhere}
+\settowidth{\lengthWordWhere}{дзе}
+\newenvironment{Explanation}%
+    {%
+        \begin{itemize}[%
+            leftmargin=0pt,%
+            itemindent=\parindent + \lengthWordWhere + \labelsep,%
+            labelsep=\labelsep%
+        ]%
+        % прыбіраем значок перад элементамі спіса
+        \renewcommand\labelitemi{}%
+    }
+    {%
+        % пусты радок пасля тлумачэнняў
+        \\[\parsep]%
+        \end{itemize}%
+    }
+
+\usepackage{listings}
+    \lstset%
+    {%
+        showstringspaces=false,%
+        tabsize=4,%
+        basicstyle=\scriptsize\ttfamily,%
+        captionpos=b,%
+        inputpath=code/,%
+        aboveskip=\baselineskip,%
+        belowskip=\baselineskip
+    }
+
+%%% Нумарацыя лістынгаў у межах секцыі
+\AtBeginDocument{\numberwithin{lstlisting}{section}}
+%%% Настройкі для тытульнага аркуша
+\input{title_setting}
+
