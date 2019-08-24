@@ -24,9 +24,13 @@ sed -i 's@^\ \+location \/ {@\0\n\t    proxy_pass http://tomcat;@' /etc/nginx/ng
 
 wget https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war -P ${TOMCAT_FOLDER}/webapps/
 
-wget http://ftp.byfly.by/pub/apache.org/tomcat/tomcat-7/v7.0.94/bin/extras/catalina-jmx-remote.jar -P ${TOMCAT_FOLDER}/lib/
+wget http://ftp.byfly.by/pub/apache.org/tomcat/tomcat-7/v7.0.94/bin/extras/catalina-jmx-remote.jar \
+    -P ${TOMCAT_FOLDER}/lib/
 
-sed -i 's@<Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />@\0\n  <Listener className="org.apache.catalina.mbeans.JmxRemoteLifecycleListener" rmiRegistryPortPlatform="8097" rmiServerPortPlatform="8098" />@' ${TOMCAT_FOLDER}/conf/server.xml
+sed -i 's@<Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener"/>@\0\n
+        <Listener className="org.apache.catalina.mbeans.JmxRemoteLifecycleListener"
+        rmiRegistryPortPlatform="8097" rmiServerPortPlatform="8098" />@'
+        ${TOMCAT_FOLDER}/conf/server.xml
 
 cat << EOF >> /etc/tomcat/tomcat.conf 
 
