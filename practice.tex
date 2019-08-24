@@ -57,6 +57,24 @@ java-параметры з удалённага хаста.
 Zabbix сервера ў прыватнай сетцы.
 
 \subsubsection{Python-праграма для аўтаматычнай рэгістрацыі Zabbix-агента.}
+Python-праграма для аўтаматычнай рэгістрацыі Zabbix-агента на Zabbix серверы ў
+прыватнай сетцы прадстаўлена ў лістынгу
+\ref{lst:Python}:
+
 \lstinputlisting[caption={Зыходны код для аўтаматычнай рэгістрацыі Zabbix-агента},%
                             label={lst:Python},%
                             language=Python]{zabbix-api.py}
+
+Для змянення параметраў Zabbix сервера выкарыстоўваецца Zabbix API.
+
+У дадзенай праграме выкарыстоўваюцца наступныя функцыі:
+\begin{enumerate}
+    \item post() -- другасная функцыя, якая выконвае запыт да Zabbix сервера і вяртае вынік аперацыі;
+    \item is\_existed\_hostgroup() -- правярае ці існуе перададзеная група на Zabbix серверы;
+    \item create\_hostgroup() -- стварае перададзеную групу на Zabbix серверы;
+    \item get\_group\_id() --  вяртае id групы па імені групы;
+    \item get\_ip\_address\_from\_server\_network() -- знаходзіць лакальны ip адрас машыны ў сетцы з Zabbix серверам;
+    \item get\_template\_id() --  вяртае id шаблона па імені шаблона;
+    \item is\_existed\_host() -- правярае ці існуе перададзеная імя хаста на Zabbix серверы;
+    \item create\_host() -- рэгістрыруе машыну ў Zabbix серверы.
+\end{enumerate}
