@@ -5,14 +5,21 @@
 \subsection{Інфраструктура як код}
 
 \subsubsection{Канфігурацыйны файл разгортвання інфраструктуры.}
-\ref{lst:Vagrantfile}:
-
 \lstinputlisting[caption={Зыходны код для разгортвання інфраструктуры},%
                             label={lst:Vagrantfile},%
-                            language=Ruby]{Vagrantfile}
+                            language=Ruby]{Vagrantfile.rb}
 
 \subsubsection{Канфігурацыйны файл настройкі Zabbix-сервера.}
+\lstinputlisting[caption={Зыходны код для настройкі Zabbix сервера},%
+                            label={lst:Zabbix-Server},%
+                            language=Bash]{zabbix-server.sh}
 
 \subsubsection{Канфігурацыйны файл настройкі веб-сервера.}
+\lstinputlisting[caption={Зыходны код для настройкі веб-сервера},%
+                            label={lst:Zabbix-Agent},%
+                            language=Bash]{zabbix-agent.sh}
 
 \subsubsection{Python-праграма для аўтаматычнай рэгістрацыі Zabbix-агента.}
+\lstinputlisting[caption={Зыходны код для аўтаматычнай рэгістрацыі Zabbix-агента},%
+                            label={lst:Python},%
+                            language=Python]{zabbix-api.py}
