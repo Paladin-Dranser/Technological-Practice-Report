@@ -1,5 +1,5 @@
 # zabbix-server.sh
-PASSWORD="DevOps_Lab_2019"
+PASSWORD="BSAC_PRACTICE_2019"
 ZABBIX_SERVER_CONF="/etc/zabbix/zabbix_server.conf"
 HTTPD_ZABBIX_CONF="/etc/httpd/conf.d/zabbix.conf"
 HTTPD_CONF="/etc/httpd/conf/httpd.conf"
