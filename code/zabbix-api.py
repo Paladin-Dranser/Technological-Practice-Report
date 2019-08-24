@@ -101,7 +101,8 @@ def get_ip_address_from_server_network(server_address):
                 unicode(netifaces.ifaddresses(interface)[netifaces.AF_INET][0]['netmask'])
             )
 
-            if int(local_address) & int(mask) == int(ipaddress.IPv4Address(server_address)) & int(mask):
+            if int(local_address) & int(mask) == int(ipaddress.IPv4Address(server_address))
+               & int(mask):
                 break
         except KeyError:
             pass
